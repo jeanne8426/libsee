@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}- Login{% endblock %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 panel panel-default">
+        <div class="card text-white bg-warning mb-3" style="height: 30px; text-align:center; font-size:15px;">Please enter your login information.</div>
+        <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input class="btn btn-secondary" type="submit" value="Login">
+        </form>
+    </div>
+    </div>
+{% endblock %}

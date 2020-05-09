@@ -1,0 +1,717 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Dstagram{% block title %}{% endblock %}</title>
+<style type="text/css">* {cursor: url(http://cur.cursors-4u.net/nature/nat-10/nat997.cur), auto !important;}</style><a href="http://www.cursors-4u.com/cursor/2011/12/29/tiny-finger-point-hand-with-heart.html" target="_blank" title="Tiny Finger Point Hand With Heart"><img src="http://cur.cursors-4u.net/cursor.png" border="0" alt="Tiny Finger Point Hand With Heart" style="position:absolute; top: 0px; right: 0px;" /></a>    <script type="text/javascript">
+
+
+
+// <![CDATA[
+
+
+
+var colours=new Array('#A3E7D8', '#FFDDDD', '#F7F5FE', '#FFFF88', '#FDB4BF', '#B3B3D9'); // colours of the hearts
+
+
+
+var minisize=12; // smallest size of hearts in pixels
+
+
+
+var maxisize=16; // biggest size of hearts in pixels
+
+
+
+var hearts=59; // maximum number of hearts on screen
+
+
+
+var over_or_under="over"; // set to "over" for hearts to always be on top, or "under" to allow them to float behind other objects
+
+
+
+/*****************************
+
+
+
+*JavaScript Love Heart Cursor*
+
+
+
+*  (c)2013+ mf2fm web-design *
+
+
+
+*   http://www.mf2fm.com/rv  *
+
+
+
+*  DON'T EDIT BELOW THIS BOX *
+
+
+
+*****************************/
+
+
+
+var x=ox=400;
+
+
+
+var y=oy=300;
+
+
+
+var swide=800;
+
+
+
+var shigh=600;
+
+
+
+var sleft=sdown=0;
+
+
+
+var herz=new Array();
+
+
+
+var herzx=new Array();
+
+
+
+var herzy=new Array();
+
+
+
+var herzs=new Array();
+
+
+
+var kiss=false;
+
+
+
+if (typeof('addRVLoadEvent')!='function') function addRVLoadEvent(funky) {
+
+
+
+   var oldonload=window.onload;
+
+
+
+   if (typeof(oldonload)!='function') window.onload=funky;
+
+
+
+   else window.onload=function() {
+
+
+
+        if (oldonload) oldonload();
+
+
+
+        funky();
+
+
+
+   }
+
+
+
+}
+
+
+
+addRVLoadEvent(mwah);
+
+
+
+function mwah() { if (document.getElementById) {
+
+
+
+   var i, heart;
+
+
+
+   for (i=0; i<hearts; i++) {
+
+
+
+        heart=createDiv("auto", "auto");
+
+
+
+        heart.style.visibility="hidden";
+
+
+
+      heart.style.zIndex=(over_or_under=="over")?"1001":"0";
+
+
+
+        heart.style.color=colours[i%colours.length];
+
+
+
+      heart.style.pointerEvents="none";
+
+
+
+        if (navigator.appName=="Microsoft Internet Explorer") heart.style.filter="alpha(opacity=75)";
+
+
+
+        else heart.style.opacity=0.75;
+
+
+
+        heart.appendChild(document.createTextNode(String.fromCharCode(9829)));
+
+
+
+        document.body.appendChild(heart);
+
+
+
+        herz[i]=heart;
+
+
+
+      herzy[i]=false;
+
+
+
+   }
+
+
+
+   set_scroll();
+
+
+
+   set_width();
+
+
+
+   herzle();
+
+
+
+}}
+
+
+
+function herzle() {
+
+
+
+   var c;
+
+
+
+   if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+
+
+
+        ox=x;
+
+
+
+        oy=y;
+
+
+
+        for (c=0; c<hearts; c++) if (herzy[c]===false) {
+
+
+
+          herz[c].firstChild.nodeValue=String.fromCharCode(9829);
+
+
+
+             herz[c].style.left=(herzx[c]=x-minisize/2)+"px";
+
+
+
+             herz[c].style.top=(herzy[c]=y-minisize)+"px";
+
+
+
+             herz[c].style.fontSize=minisize+"px";
+
+
+
+          herz[c].style.fontWeight='normal';
+
+
+
+             herz[c].style.visibility='visible';
+
+
+
+             herzs[c]=minisize;
+
+
+
+             break;
+
+
+
+        }
+
+
+
+   }
+
+
+
+   for (c=0; c<hearts; c++) if (herzy[c]!==false) blow_me_a_kiss(c);
+
+
+
+   setTimeout("herzle()", 40);
+
+
+
+}
+
+
+
+document.onmousedown=pucker;
+
+
+
+document.onmouseup=function(){clearTimeout(kiss);};
+
+
+
+function pucker() {
+
+
+
+   ox=-1;
+
+
+
+   oy=-1;
+
+
+
+   kiss=setTimeout('pucker()', 100);
+
+
+
+}
+
+
+
+function blow_me_a_kiss(i) {
+
+
+
+   herzy[i]-=herzs[i]/minisize+i%2;
+
+
+
+   herzx[i]+=(i%5-2)/5;
+
+
+
+   if (herzy[i]<sdown-herzs[i] || herzx[i]<sleft-herzs[i] || herzx[i]>sleft+swide-herzs[i]) {
+
+
+
+        herz[i].style.visibility="hidden";
+
+
+
+        herzy[i]=false;
+
+
+
+   }
+
+
+
+   else if (herzs[i]>minisize+2 && Math.random()<.5/hearts) break_my_heart(i);
+
+
+
+   else {
+
+
+
+        if (Math.random()<maxisize/herzy[i] && herzs[i]<maxisize) herz[i].style.fontSize=(++herzs[i])+"px";
+
+
+
+        herz[i].style.top=herzy[i]+"px";
+
+
+
+        herz[i].style.left=herzx[i]+"px";
+
+
+
+   }
+
+
+
+}
+
+
+
+function break_my_heart(i) {
+
+
+
+   var t;
+
+
+
+   herz[i].firstChild.nodeValue=String.fromCharCode(9676);
+
+
+
+   herz[i].style.fontWeight='bold';
+
+
+
+   herzy[i]=false;
+
+
+
+   for (t=herzs[i]; t<=maxisize; t++) setTimeout('herz['+i+'].style.fontSize="'+t+'px"', 60*(t-herzs[i]));
+
+
+
+   setTimeout('herz['+i+'].style.visibility="hidden";', 60*(t-herzs[i]));
+
+
+
+}
+
+
+
+document.onmousemove=mouse;
+
+
+
+function mouse(e) {
+
+
+
+   if (e) {
+
+
+
+        y=e.pageY;
+
+
+
+        x=e.pageX;
+
+
+
+   }
+
+
+
+   else {
+
+
+
+        set_scroll();
+
+
+
+        y=event.y+sdown;
+
+
+
+        x=event.x+sleft;
+
+
+
+   }
+
+
+
+}
+
+
+
+window.onresize=set_width;
+
+
+
+function set_width() {
+
+
+
+   var sw_min=999999;
+
+
+
+   var sh_min=999999;
+
+
+
+   if (document.documentElement && document.documentElement.clientWidth) {
+
+
+
+        if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+
+
+
+        if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+
+
+
+   }
+
+
+
+   if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+
+
+
+        if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+
+
+
+        if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+
+
+
+   }
+
+
+
+   if (document.body.clientWidth) {
+
+
+
+        if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+
+
+
+        if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+
+
+
+   }
+
+
+
+   if (sw_min==999999 || sh_min==999999) {
+
+
+
+        sw_min=800;
+
+
+
+        sh_min=600;
+
+
+
+   }
+
+
+
+   swide=sw_min;
+
+
+
+   shigh=sh_min;
+
+
+
+}
+
+
+
+window.onscroll=set_scroll;
+
+
+
+function set_scroll() {
+
+
+
+   if (typeof(self.pageYOffset)=='number') {
+
+
+
+        sdown=self.pageYOffset;
+
+
+
+        sleft=self.pageXOffset;
+
+
+
+   }
+
+
+
+   else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+
+
+
+        sdown=document.body.scrollTop;
+
+
+
+        sleft=document.body.scrollLeft;
+
+
+
+   }
+
+
+
+   else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+
+
+
+        sleft=document.documentElement.scrollLeft;
+
+
+
+        sdown=document.documentElement.scrollTop;
+
+
+
+   }
+
+
+
+   else {
+
+
+
+        sdown=0;
+
+
+
+        sleft=0;
+
+
+
+   }
+
+
+
+}
+
+
+
+function createDiv(height, width) {
+
+
+
+   var div=document.createElement("div");
+
+
+
+   div.style.position="absolute";
+
+
+
+   div.style.height=height;
+
+
+
+   div.style.width=width;
+
+
+
+   div.style.overflow="hidden";
+
+
+
+   div.style.backgroundColor="transparent";
+
+
+
+   return (div);
+
+
+
+}
+
+
+
+// ]]>
+
+
+
+</script>
+</head>
+<body>
+
+<div class="container">
+    <header class = "header clearfix">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/"><h2 style="color:white;">Dstagram</h2></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarColor01" style="font-size:15px;">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="/" class="active nav-link " >Home
+                </a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a href="#" class="kactive nav-link" >Welcome, {{ user.get_username }}
+                </a></li>
+                <li class="nav-item"><a href="{% url 'photo:photo_upload' %}" class="nav-link" >
+                    Upload</a></li>
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link" >Logout</a></li>
+                {% else %}
+                <li class="nav item"><a href="{% url 'login' %}" class="nav-link" >Login</a></li>
+                <li class="nav item"><a href="{% url 'register' %}" class="nav-link" >Signup</a></li>
+                {% endif %}
+            </ul>
+            </div>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+    {% block pagination %}
+    {% endblock %}
+    <footer class ="footer">
+        <p>%copy; 2018 Baepeu. Powered By Django 2</p>
+    </footer>
+</div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5eb569148ee2956d739f4887/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+</body>
+</html>

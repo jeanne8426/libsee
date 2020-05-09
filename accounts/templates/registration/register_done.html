@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}- Registration Done{% endblock %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 panel panel-default">
+        <div class="card text-white bg-info mb-3" style="height: 30px; text-align:center; font-size:15px;">Registration was succeeded. Welcome, {{ new_user.username }}</div>
+        <a class="btn btn-secondary btn-lg" href="/">Move to main</a>
+    </div>
+    <civ class="col-md-2"></civ>
+    </div>
+{% endblock %}

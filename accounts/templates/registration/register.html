@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}- Registration{% endblock %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-8 panel panel-default">
+        <div class="card text-white bg-warning mb-3" style="height: 30px; text-align:center; font-size:15px;">Please enter your account information.</div>
+        <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input class="btn btn-secondary btn-lg" type="submit" value="Register">
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+    </div>
+{% endblock %}

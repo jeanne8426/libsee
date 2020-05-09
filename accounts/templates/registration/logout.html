@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}- Logout{% endblock %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 panel panel-default">
+        <div class="card text-white bg-info mb-3" style="height: 30px; text-align:center; font-size:15px;"> You have been successfully logged out.</div>
+        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}">Click to Login</a>
+    </div>
+    <div class="col-md-2"></div>
+    </div>
+{% endblock %}
